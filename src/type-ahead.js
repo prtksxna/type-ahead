@@ -1,7 +1,8 @@
 var TypeAhead = Class.create({
-    initialize: function(textarea, array){
+    initialize: function(textarea, array, sugg){
 	this.textarea = $(textarea);
 	this.array = array;
+	this.sugg = $(sugg);
 	this.observe();
     },
     observe: function(){
@@ -19,8 +20,12 @@ var TypeAhead = Class.create({
 	var matches = this.match(extracted);
 	if(matches.length == 0){
 	    return false;
+	    this.sugg.update("");
 	}else if(matches.length == 1){
 	    this.insert(matches.first(), extracted, pos);
+	    this.sugg.update("");
+	}else{
+	    this.sugg.update("Possible Matches: "+ matches.join(", "));
 	}
     },
     insert: function(match, extracted, pos){

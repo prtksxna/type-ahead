@@ -8,17 +8,18 @@
   <body>
     <p>
       <label for="test_text">Text Textarea</label></br>
-      <textarea id="test_text"></textarea>
+      <textarea id="test_text"></textarea><br/>
+      <span id="suggestions">&nbsp;</span><br/>
     </p>
 
     <p>
       <label for="test_array">Array of Words (Seperated by Space)</label></br>
-      <input type="text" id="test_array" value="apple bat crow donkey" disabled/>
+      <input type="text" id="test_array" value="apple bat borrow attack crow donkey" disabled/>
     </p>
 
     <script type="text/javascript">
       var arr = $("test_array").value.split(" ");
-      var auto = new TypeAhead("test_text", arr);
+      var auto = new TypeAhead("test_text", arr, "suggestions");
     </script>
 
 
