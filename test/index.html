@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <script type="text/javascript" src="../res/prototype.js"></script>
+    <script type="text/javascript" src="../src/type-ahead.js"></script>
+
+    <link rel="stylesheet" href="../src/type-ahead.js" type="text/css" media="screen" />
+  </head>
+  <body>
+    <p>
+      <label for="test_text">Text Textarea</label></br>
+      <textarea id="test_text"></textarea>
+    </p>
+
+    <p>
+      <label for="test_array">Array of Words (Seperated by Space)</label></br>
+      <input type="text" id="test_array" value="apple bat crow donkey" disabled/>
+    </p>
+
+    <script type="text/javascript">
+      var arr = $("test_array").value.split(" ");
+      console.log(arr);
+      var auto = new TypeAhead("test_text", arr);
+    </script>
+
+
+  </body>
+</html>
