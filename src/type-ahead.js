@@ -13,9 +13,21 @@ var TypeAhead = Class.create({
 	}.bind(this));
     },
     tab: function(){
-	var pos = this.textarea.selectionStart;
+	var pos = this.getCaret();
 	var text = this.textarea.value
-	console.log(this.extractWord(pos,text));
+	var extracted = this.extractWord(pos,text);
+	var matches = this.match(extracted);
+	if(matches.length == 0){
+	    return false;
+	}else if(matches.length == 1){
+	    this.insert(matches.first(), extracted, pos);
+	}
+    },
+    insert: function(match, extracted, pos){
+	var add_text = match.substring(extracted.length, match.length);
+	var old_text = this.textarea.value
+	var new_text = old_text.substring(0,pos) + add_text + old_text.substring(pos, old_text.length);
+	this.textarea.value = new_text;
     },
     extractWord: function(pos, text){
 	var word = "";
@@ -25,5 +37,44 @@ var TypeAhead = Class.create({
 	    pos -= 1;
 	}
 	return word.split("").reverse().join("");
+    },
+    match: function(extracted){
+	var matches = [];
+	this.array.each(function(word){
+	    if(word.startsWith(extracted)) matches.push(word);
+	});
+	return matches;
+    },
+
+    // Thanks to Vishal Monpara's Blog
+    // http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
+    getCaret: function(){
+	var ctrl = this.textarea;
+	var CaretPos = 0;	// IE Support
+	if (document.selection) {
+	    ctrl.focus ();
+	    var Sel = document.selection.createRange ();
+	    Sel.moveStart ('character', -ctrl.value.length);
+	    CaretPos = Sel.text.length;
+	}
+	// Firefox support
+	else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+	    CaretPos = ctrl.selectionStart;
+	return (CaretPos);
+    },
+    setCaret: function(pos){
+	var ctrl = this.textarea;
+	if(ctrl.setSelectionRange)
+	{
+	    ctrl.focus();
+	    ctrl.setSelectionRange(pos,pos);
+	}
+	else if (ctrl.createTextRange) {
+	    var range = ctrl.createTextRange();
+	    range.collapse(true);
+	    range.moveEnd('character', pos);
+	    range.moveStart('character', pos);
+	    range.select();
+	}
     }
 });
