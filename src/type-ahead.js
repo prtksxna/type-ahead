@@ -28,6 +28,7 @@ var TypeAhead = Class.create({
 	var old_text = this.textarea.value
 	var new_text = old_text.substring(0,pos) + add_text + old_text.substring(pos, old_text.length);
 	this.textarea.value = new_text;
+	this.setCaret(pos + add_text.length);
     },
     extractWord: function(pos, text){
 	var word = "";
