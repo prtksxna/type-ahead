@@ -2,6 +2,11 @@
   This is a simple text autocompletiong tool, written in JavaScript. It takes a textbox and an array of words and allows tab completion.
 
 ** Usage
-   You need to include
+   Read /test/index.html to understand the complete usage.
 
-http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
+** Resources
+*** Caret Position
+    This blog post by Vishal Monpara turned out to be very important while positioning the caret.
+    http://blog.vishalon.net/index.php/javascript-getting-and-setting-caret-position-in-textarea/
+*** Prototype
+    http://prototypejs.org
